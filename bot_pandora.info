@@ -1,0 +1,5 @@
+name = Bot Pandora
+package = Bot
+dependencies[] = bot
+description = "Links the bot to the pandorabots server."
+core = 6.x

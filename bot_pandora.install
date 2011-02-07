@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implementation of hook_schema().
+ */
+function bot_pandora_schema() {
+  $schema['bot_pandora'] = array(
+    'description' => t('The single table necessary for users storage.'),
+    'fields' => array(
+      'nick' => array(
+        'default'     => '',
+        'description' => t('The nick of the user speaking to the bot.'),
+        'length'      => 255,
+        'not null'    => TRUE,
+        'type'        => 'varchar',
+      ),
+      'custid' => array(
+        'default'     => '',
+        'description' => t('The id given to the server to recognize the nick.'),
+        'length'      => 32,
+        'not null'    => TRUE,
+        'type'        => 'varchar',
+      ),
+    ),
+    'key' => array('nick'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function bot_pandora_install() {
+  drupal_install_schema('bot_pandora');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function bot_pandora_uninstall() {
+  drupal_uninstall_schema('bot_pandora');
+  db_query("DELETE FROM {variable} WHERE name LIKE 'bot_pandora%%'");
+}
